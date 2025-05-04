@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -9,10 +10,13 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTime;
     [SerializeField]
     private Transform[] wayPoints;
+    private List<Enemy> enemyList;
 
+    public List<Enemy> EnemyList => enemyList;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
+        enemyList = new List<Enemy>();
         StartCoroutine("SpawnEnemy");
     }
 
@@ -24,9 +28,16 @@ public class EnemySpawner : MonoBehaviour
             GameObject clone = Instantiate(enemyPrefab);
             Enemy enemy = clone.GetComponent<Enemy>();
 
-            enemy.Setup(wayPoints);
+            enemy.Setup(this, wayPoints);
+            enemyList.Add(enemy);
 
             yield return new WaitForSeconds(spawnTime);
         }
+    }
+
+    public void DestroyEnemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
     }
 }

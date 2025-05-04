@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8313060956762200281}
   - component: {fileID: 9018785558619729139}
   m_Layer: 0
-  m_Name: New Palette
+  m_Name: WayPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
